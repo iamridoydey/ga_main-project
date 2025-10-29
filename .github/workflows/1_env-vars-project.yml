@@ -1,8 +1,5 @@
 name: Environment Variables
 on:
-  push:
-    branches: 
-      - "main"
   workflow_dispatch:
 env:
   WORKFLOW_VAR: I am in workflow scope
