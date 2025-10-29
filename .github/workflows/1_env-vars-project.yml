@@ -1,0 +1,28 @@
+name: Environment Variables
+on:
+  push:
+    branches: 
+      - "main"
+  workflow_dispatch:
+env:
+  WORKFLOW_VAR: I am in workflow scope
+
+jobs:
+  job1:
+    runs-on: ubuntu-24.04
+    env: 
+      JOB_VAR: I am in job1 scope
+    steps:
+      - name: job1 scope
+        env:
+          STEP_VAR: I am in steps scope
+        run: |
+          echo "JOB1: \n\t $WORKFLOW_VAR \n $JOB_VAR \n $STEP_VAR"
+  job2:
+    runs-on: ubuntu-24.04
+    env: 
+      JOB_VAR: I am in job2 scope
+    steps:
+      - name: job2 scope
+        run: |
+          echo "JOB1: \n\t $WORKFLOW_VAR \n $JOB_VAR \n $STEP_VAR"
