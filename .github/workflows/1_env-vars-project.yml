@@ -17,7 +17,8 @@ jobs:
         env:
           STEP_VAR: I am in steps scope
         run: |
-          echo "JOB1: \n\t $WORKFLOW_VAR \n $JOB_VAR \n $STEP_VAR"
+          echo -e "JOB1:\n\t$WORKFLOW_VAR\n\t$JOB_VAR\n\t$STEP_VAR"
+
   job2:
     runs-on: ubuntu-24.04
     env: 
@@ -25,4 +26,5 @@ jobs:
     steps:
       - name: job2 scope
         run: |
-          echo "JOB1: \n\t $WORKFLOW_VAR \n $JOB_VAR \n $STEP_VAR"
+          echo -e "JOB2:\n\t$WORKFLOW_VAR\n\t$JOB_VAR\n\t$STEP_VAR"
+
