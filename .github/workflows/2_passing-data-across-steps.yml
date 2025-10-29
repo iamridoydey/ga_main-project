@@ -1,0 +1,34 @@
+name: Passing Data Across Steps
+on:
+  workflow_dispatch:
+jobs:
+  producer:
+    runs-on: ubuntu-24.04
+    outputs:
+      foo: ${{steps.generate-foo.outputs.foo}}
+    steps:
+      - name: Generate and export foo
+        id: generate-foo
+        run: |
+          foo=bar
+
+          # Step output scope variable
+          echo "foo=${foo}" >> "$GITHUB_OUTPUT"
+
+          # Jobs output scope varible
+          echo "FOO=${foo}" >> "$GITHUB_ENV"
+      
+      - name: Inspect value in producer
+        run: |
+          echo "foo (set via github output): ${{steps.generate-foo.outputs.foo}}"
+          echo "FOO (set via github env): $Foo"
+  
+  consumer:
+    runs-on: ubuntu-24.04
+    needs: producer
+    steps:
+      - name: Inspect value from producer
+        run: |
+          echo "foo (set via github output): ${{needs.producer.outputs.foo}}"
+          echo "FOO (set via github env): $Foo" | echo "FOO (set via github env): FOO<unset>"
+
