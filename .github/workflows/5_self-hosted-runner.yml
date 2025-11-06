@@ -1,0 +1,8 @@
+name: Self Hosted Runner
+on:
+  workflow_dispatch:
+jobs:
+  Hello-World-Job:
+    runs-on: [self-hosted, codebuild-aws-example]
+    steps:
+      - run: echo "Hello World"
